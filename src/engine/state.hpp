@@ -13,6 +13,7 @@ struct StateKey
 
     int total;
     bool soft;
+    int cards;
 
     std::array<int,13> shoe;
 
@@ -21,6 +22,7 @@ struct StateKey
     {
         return total == other.total &&
                soft == other.soft &&
+               cards == other.cards &&
                shoe == other.shoe;
     }
 
@@ -40,19 +42,29 @@ struct StateHash
 
         h ^=
             std::hash<bool>{}(s.soft)
-            << 1;
+            +
+            (h << 1);
+
+
+        h ^=
+            std::hash<int>{}(s.cards)
+            +
+            (h << 2);
+
 
 
         for(auto c : s.shoe)
         {
+
             h ^=
                 std::hash<int>{}(c)
                 +
                 0x9e3779b9
                 +
-                (h<<6)
+                (h << 6)
                 +
-                (h>>2);
+                (h >> 2);
+
         }
 
 

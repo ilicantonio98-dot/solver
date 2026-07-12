@@ -1,4 +1,5 @@
 #include "dealer_solver.hpp"
+#include <iostream>
 
 
 namespace blackjack
@@ -21,29 +22,50 @@ DealerDistribution DealerSolver::solve(
 )
 {
 
-    DealerDistribution result;
+    cache.clear();
 
 
-    recurse(
+    return recurse(
         dealer,
-        shoe,
-        result
+        shoe
     );
-
-
-    return result;
 
 }
 
 
 
 
-void DealerSolver::recurse(
+DealerDistribution DealerSolver::recurse(
     Hand hand,
-    Shoe shoe,
-    DealerDistribution& result
+    Shoe shoe
 )
 {
+
+    StateKey key;
+
+    key.total = hand.value();
+    key.soft = hand.soft();
+    key.cards = hand.size();
+    key.shoe = shoe.state();
+
+
+
+    auto found =
+        cache.find(key);
+
+
+
+    if(found != cache.end())
+    {
+        return found->second;
+    }
+
+
+
+
+    DealerDistribution result;
+
+
 
     int value =
         hand.value();
@@ -52,59 +74,93 @@ void DealerSolver::recurse(
 
     if(hand.bust())
     {
-        result[DealerResult::BUST] += 1.0;
-        return;
+        result[DealerResult::BUST] = 1.0;
+
+        cache[key] = result;
+
+        return result;
     }
 
 
 
-    bool stop = false;
 
-
-    if(value > 17)
-        stop = true;
-
-
-
-    if(value == 17)
-    {
-        // S17
-        stop = true;
-    }
-
-
-
-    if(stop)
+    // Dealer S17
+    if(value >= 17)
     {
 
         DealerResult r =
-            static_cast<DealerResult>(
-                value
-            );
+            resultFromTotal(value);
 
 
-        result[r] += 1.0;
+        result[r] = 1.0;
 
-        return;
+
+        cache[key] = result;
+
+
+        return result;
 
     }
 
 
 
-    int remaining =
+
+
+    int totalCards =
         shoe.remaining();
+    
+        static int depth = 0;
 
-
-
-    for(int i = 0; i < remaining; i++)
+    if(depth < 2)
     {
+        std::cout 
+            << "Depth "
+            << depth
+            << " cards left "
+            << totalCards
+            << " hand "
+            << hand.value()
+            << "\n";
+    }
+
+
+
+    for(int i = 0; i < 13; i++)
+    {
+        std::cout 
+            << i
+            << " count "
+            << shoe.remaining(
+                Shoe::rankFromIndex(i)
+            )
+            << "\n";
+
+        Rank rank =
+            Shoe::rankFromIndex(i);
+
+
+
+        int amount =
+            shoe.remaining(rank);
+
+
+
+        if(amount == 0)
+            continue;
+
+
+
+        double probability =
+            (double)amount /
+            totalCards;
+
+
 
         Shoe next =
             shoe;
 
 
-        Card c =
-            next.draw();
+        next.remove(rank);
 
 
 
@@ -112,17 +168,40 @@ void DealerSolver::recurse(
             hand;
 
 
-        nextHand.add(c);
-
-
-
-        recurse(
-            nextHand,
-            next,
-            result
+        nextHand.add(
+            Card{rank}
         );
 
+        std::cout
+            << i
+            << " new hand "
+            << nextHand.value()
+            << "\n";  
+
+
+        auto child =
+            recurse(
+                nextHand,
+                next
+            );
+
+
+
+        for(auto& item : child)
+        {
+            result[item.first] +=
+                probability *
+                item.second;
+        }
+
     }
+
+
+
+    cache[key] = result;
+
+
+    return result;
 
 }
 

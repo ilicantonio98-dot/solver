@@ -156,4 +156,29 @@ CMakeFiles/blackjack_solver.dir/src/main.cpp.obj: \
  C:/msys64/ucrt64/include/c++/16.1.0/bits/istream.tcc \
  C:\Users\BigPP\Documents\GitHub\solver\src\cards/shoe.hpp \
  C:\Users\BigPP\Documents\GitHub\solver\src\cards/card.hpp \
- C:/msys64/ucrt64/include/c++/16.1.0/array
+ C:/msys64/ucrt64/include/c++/16.1.0/array \
+ C:\Users\BigPP\Documents\GitHub\solver\src\cards/hand.hpp \
+ C:/msys64/ucrt64/include/c++/16.1.0/vector \
+ C:/msys64/ucrt64/include/c++/16.1.0/bits/stl_uninitialized.h \
+ C:/msys64/ucrt64/include/c++/16.1.0/bits/stl_vector.h \
+ C:/msys64/ucrt64/include/c++/16.1.0/bits/stl_bvector.h \
+ C:/msys64/ucrt64/include/c++/16.1.0/bits/vector.tcc \
+ C:\Users\BigPP\Documents\GitHub\solver\src\engine/dealer_solver.hpp \
+ C:\Users\BigPP\Documents\GitHub\solver\src\engine/dealer_result.hpp \
+ C:/msys64/ucrt64/include/c++/16.1.0/map \
+ C:/msys64/ucrt64/include/c++/16.1.0/bits/stl_tree.h \
+ C:/msys64/ucrt64/include/c++/16.1.0/ext/aligned_buffer.h \
+ C:/msys64/ucrt64/include/c++/16.1.0/bits/node_handle.h \
+ C:/msys64/ucrt64/include/c++/16.1.0/bits/stl_map.h \
+ C:/msys64/ucrt64/include/c++/16.1.0/bits/stl_multimap.h \
+ C:\Users\BigPP\Documents\GitHub\solver\src\engine/state.hpp \
+ C:/msys64/ucrt64/include/c++/16.1.0/functional \
+ C:/msys64/ucrt64/include/c++/16.1.0/bits/refwrap.h \
+ C:/msys64/ucrt64/include/c++/16.1.0/bits/std_function.h \
+ C:/msys64/ucrt64/include/c++/16.1.0/unordered_map \
+ C:/msys64/ucrt64/include/c++/16.1.0/bits/unordered_map.h \
+ C:/msys64/ucrt64/include/c++/16.1.0/bits/hashtable.h \
+ C:/msys64/ucrt64/include/c++/16.1.0/bits/hashtable_policy.h \
+ C:/msys64/ucrt64/include/c++/16.1.0/bits/enable_special_members.h \
+ C:/msys64/ucrt64/include/c++/16.1.0/bits/binders.h \
+ C:/Users/BigPP/Documents/GitHub/solver/src/rules/rules.hpp

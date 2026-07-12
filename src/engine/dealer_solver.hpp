@@ -1,9 +1,13 @@
 #pragma once
 
 #include "dealer_result.hpp"
+#include "state.hpp"
+
 #include "../cards/hand.hpp"
 #include "../cards/shoe.hpp"
 #include "../rules/rules.hpp"
+
+#include <unordered_map>
 
 
 namespace blackjack
@@ -31,10 +35,17 @@ private:
     Rules rules;
 
 
-    void recurse(
+    std::unordered_map<
+        StateKey,
+        DealerDistribution,
+        StateHash
+    > cache;
+
+
+
+    DealerDistribution recurse(
         Hand hand,
-        Shoe shoe,
-        DealerDistribution& result
+        Shoe shoe
     );
 
 
