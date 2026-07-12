@@ -1,53 +1,38 @@
 #include <iostream>
 
-#include "cards/shoe.hpp"
-#include "cards/hand.hpp"
+#include "rules/rules.hpp"
 
 
 using namespace blackjack;
 
 
-
 int main()
 {
 
-    Shoe shoe(6);
+    Rules rules;
 
 
-    Hand hand;
-
-
-    hand.add(shoe.draw());
-    hand.add(shoe.draw());
-
-
-    std::cout 
-        << "Hand value: "
-        << hand.value()
+    std::cout
+        << "Decks: "
+        << rules.decks
         << "\n";
 
 
     std::cout
-        << "Cards: "
-        << hand.size()
+        << "Dealer hole card: "
+        << rules.dealerHasHoleCard
         << "\n";
 
 
     std::cout
-        << "Soft: "
-        << hand.soft()
+        << "Charlie payout: "
+        << rules.sixCardCharliePayout
         << "\n";
 
 
     std::cout
-        << "Bust: "
-        << hand.bust()
-        << "\n";
-
-
-    std::cout
-        << "Blackjack: "
-        << hand.blackjack()
+        << "777 payout: "
+        << rules.threeSevenPayout
         << "\n";
 
 
