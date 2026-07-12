@@ -1,5 +1,8 @@
 #include <iostream>
 
+#include "cards/shoe.hpp"
+#include "cards/hand.hpp"
+#include "engine/dealer.hpp"
 #include "rules/rules.hpp"
 
 
@@ -11,28 +14,41 @@ int main()
 
     Rules rules;
 
+    Shoe shoe(
+        rules.decks
+    );
+
+
+    Hand dealer;
+
+    dealer.add(
+        shoe.draw()
+    );
+
+    dealer.add(
+        shoe.draw()
+    );
+
+
+    Dealer dealerEngine(rules);
+
+
+    Hand result =
+        dealerEngine.play(
+            dealer,
+            shoe
+        );
+
 
     std::cout
-        << "Decks: "
-        << rules.decks
+        << "Dealer final value: "
+        << result.value()
         << "\n";
 
 
     std::cout
-        << "Dealer hole card: "
-        << rules.dealerHasHoleCard
-        << "\n";
-
-
-    std::cout
-        << "Charlie payout: "
-        << rules.sixCardCharliePayout
-        << "\n";
-
-
-    std::cout
-        << "777 payout: "
-        << rules.threeSevenPayout
+        << "Dealer cards: "
+        << result.size()
         << "\n";
 
 
