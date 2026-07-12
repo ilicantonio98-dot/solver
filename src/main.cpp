@@ -2,11 +2,12 @@
 
 #include "cards/shoe.hpp"
 #include "cards/hand.hpp"
-#include "engine/dealer.hpp"
+#include "engine/ev.hpp"
 #include "rules/rules.hpp"
 
 
 using namespace blackjack;
+
 
 
 int main()
@@ -14,13 +15,25 @@ int main()
 
     Rules rules;
 
+
     Shoe shoe(
         rules.decks
     );
 
 
+    Hand player;
     Hand dealer;
 
+
+    player.add(
+        shoe.draw()
+    );
+
+    player.add(
+        shoe.draw()
+    );
+
+
     dealer.add(
         shoe.draw()
     );
@@ -30,27 +43,22 @@ int main()
     );
 
 
-    Dealer dealerEngine(rules);
+
+    EVEngine engine(rules);
 
 
-    Hand result =
-        dealerEngine.play(
+    double ev =
+        engine.standEV(
+            player,
             dealer,
             shoe
         );
 
 
     std::cout
-        << "Dealer final value: "
-        << result.value()
+        << "Stand EV: "
+        << ev
         << "\n";
 
 
-    std::cout
-        << "Dealer cards: "
-        << result.size()
-        << "\n";
-
-
-    return 0;
 }
