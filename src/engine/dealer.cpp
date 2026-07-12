@@ -35,9 +35,7 @@ Hand Dealer::play(
         }
 
 
-        dealerHand.add(
-            shoe.draw()
-        );
+
 
     }
 
